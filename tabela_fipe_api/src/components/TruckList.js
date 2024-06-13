@@ -52,7 +52,7 @@ const TruckList = () => {
 
   return (
     <div>
-      <h1>Marcas de caminhoes</h1>
+      <h2>Marca do caminhão</h2>
       <select onChange={(e) => { setSelectedBrand(e.target.value); fetchModels(e.target.value); }}>
         <option value="">Selecione uma marca</option>
         {carBrands.map(brand => (
@@ -62,7 +62,7 @@ const TruckList = () => {
 
       {selectedBrand && (
         <div>
-          <h2>Modelos</h2>
+          <h3>Modelos</h3>
           <select onChange={(e) => { setSelectedModel(e.target.value); fetchYears(selectedBrand, e.target.value); }}>
             <option value="">Selecione um modelo</option>
             {models.map(model => (
@@ -74,7 +74,7 @@ const TruckList = () => {
 
       {selectedModel && (
         <div>
-          <h2>Anos</h2>
+          <h3>Anos</h3>
           <select onChange={(e) => { setSelectedYear(e.target.value); fetchPrice(selectedBrand, selectedModel, e.target.value); }}>
             <option value="">Selecione um ano</option>
             {years.map(year => (

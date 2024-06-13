@@ -1,3 +1,4 @@
+// src/components/CarList.js
 import React, { useState, useEffect } from 'react';
 import api from '../services/api';
 
@@ -9,8 +10,6 @@ const CarList = () => {
   const [years, setYears] = useState([]);
   const [selectedYear, setSelectedYear] = useState(null);
   const [priceDetails, setPriceDetails] = useState(null);
-  const [fipeCode, setFipeCode] = useState('');
-  const [searchResult, setSearchResult] = useState(null);
 
   useEffect(() => {
     const fetchCarBrands = async () => {
@@ -52,20 +51,9 @@ const CarList = () => {
     }
   };
 
-  const searchByFipeCode = async (fipeCode) => {
-    try {
-      // Supondo que você tenha a estrutura para buscar diretamente pelo código FIPE
-      // Exemplo fictício de URL, ajuste conforme necessário
-      const response = await api.get(`/carros/fipe/${fipeCode}`);
-      setSearchResult(response.data);
-    } catch (error) {
-      console.error('Erro ao buscar pelo código Fipe:', error);
-    }
-  };
-
   return (
-    <div>
-      <h1>Marcas de Carros</h1>
+    <div className="list-container">
+      <h2>Marca do Carro</h2>
       <select onChange={(e) => { setSelectedBrand(e.target.value); fetchModels(e.target.value); }}>
         <option value="">Selecione uma marca</option>
         {carBrands.map(brand => (
@@ -75,7 +63,7 @@ const CarList = () => {
 
       {selectedBrand && (
         <div>
-          <h2>Modelos</h2>
+          <h3>Modelo</h3>
           <select onChange={(e) => { setSelectedModel(e.target.value); fetchYears(selectedBrand, e.target.value); }}>
             <option value="">Selecione um modelo</option>
             {models.map(model => (
@@ -87,7 +75,7 @@ const CarList = () => {
 
       {selectedModel && (
         <div>
-          <h2>Anos</h2>
+          <h3>Ano</h3>
           <select onChange={(e) => { setSelectedYear(e.target.value); fetchPrice(selectedBrand, selectedModel, e.target.value); }}>
             <option value="">Selecione um ano</option>
             {years.map(year => (
@@ -99,7 +87,7 @@ const CarList = () => {
 
       {priceDetails && (
         <div>
-          <h2>Preço e Código Fipe</h2>
+          <h3>Preço e Código Fipe</h3>
           <p>Preço: {priceDetails.Valor}</p>
           <p>Código Fipe: {priceDetails.CodigoFipe}</p>
         </div>
