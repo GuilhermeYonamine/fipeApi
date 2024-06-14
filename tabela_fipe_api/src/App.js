@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import TruckList from './components/TruckList';
 import CarList from './components/CarList';
 import FipeSearch from './components/FipeSearch';
+import MotorcycleList from './components/MotorcycleList';
 import './App.css';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <main>
           {selectedOption === 'carros' && <CarList />}
           {selectedOption === 'caminhoes' && <TruckList />}
+          {selectedOption === 'motos' && <MotorcycleList />}
           {selectedOption === 'fipe' && <FipeSearch />}
         </main>
       </div>
