@@ -82,7 +82,7 @@ nav button span {
 }
 
 nav button:hover {
-  background-color: #45a049;
+  background-color: #50a1ca;
 }
 
 main {
@@ -157,10 +157,9 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 95vh;
+    height: 90vh;
     width: 95%;
     margin-top: 10px;
-    margin-bottom: 10px;
     margin-right: 5px;
     margin-left: 10px;
     border-radius: 20px;
@@ -178,5 +177,17 @@ img {
   main {
     margin-left: 10px;
     margin-right: 10px;
+    padding: 0;
+  }
+
+  h2 {
+    font-size: 1rem;
+  }
+
+  h3{
+    font-size: 1rem;
+  }
+  .list-container {
+    padding: 10px;
   }
 }

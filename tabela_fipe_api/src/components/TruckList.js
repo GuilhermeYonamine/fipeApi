@@ -8,7 +8,7 @@ const TruckList = () => {
   const [selectedModel, setSelectedModel] = useState(null);
   const [years, setYears] = useState([]);
   const [selectedYear, setSelectedYear] = useState(null);
-  const [price, setPrice] = useState(null);
+  const [priceDetails, setPriceDetails] = useState(null);
 
   useEffect(() => {
     const fetchCarBrands = async () => {
@@ -16,7 +16,7 @@ const TruckList = () => {
         const response = await api.get('/caminhoes/marcas');
         setCarBrands(response.data);
       } catch (error) {
-        console.error('Erro ao buscar marcas de caminhoes:', error);
+        console.error('Erro ao buscar marcas de caminhões:', error);
       }
     };
 
@@ -44,14 +44,14 @@ const TruckList = () => {
   const fetchPrice = async (brandId, modelId, year) => {
     try {
       const response = await api.get(`/caminhoes/marcas/${brandId}/modelos/${modelId}/anos/${year}`);
-      setPrice(response.data);
+      setPriceDetails(response.data);
     } catch (error) {
       console.error('Erro ao buscar preço:', error);
     }
   };
 
   return (
-    <div>
+    <div className="list-container">
       <h2>Marca do caminhão</h2>
       <select onChange={(e) => { setSelectedBrand(e.target.value); fetchModels(e.target.value); }}>
         <option value="">Selecione uma marca</option>
@@ -84,10 +84,11 @@ const TruckList = () => {
         </div>
       )}
 
-      {price && (
+      {priceDetails && (
         <div>
-          <h2>Preço</h2>
-          <p>{price.Valor}</p>
+          <h2>Preço e Código FIPE</h2>
+          <p>Preço: {priceDetails.Valor}</p>
+          <p>Código FIPE: {priceDetails.CodigoFipe}</p>
         </div>
       )}
     </div>

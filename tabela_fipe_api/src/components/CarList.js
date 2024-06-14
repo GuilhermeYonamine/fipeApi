@@ -89,7 +89,7 @@ const CarList = () => {
         <div>
           <h3>Preço e Código Fipe</h3>
           <p>Preço: {priceDetails.Valor}</p>
-          <p>Código Fipe: {priceDetails.CodigoFipe}</p>
+          <p>Código FIPE: {priceDetails.CodigoFipe}</p>
         </div>
       )}
     </div>
