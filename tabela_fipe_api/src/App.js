@@ -13,7 +13,7 @@ function App() {
     <div className="main-container">
       <div className="App">
         <header>
-          <h1>FIPE Search</h1>
+          <h1>Tabela fipe Vtech</h1>
           <nav>
             <button onClick={() => setSelectedOption('carros')}>Carros</button>
             <button onClick={() => setSelectedOption('caminhoes')}>Caminhões</button>
