@@ -1,4 +1,3 @@
-// src/components/FipeSearch.js
 import React, { useState } from 'react';
 import axios from 'axios';
 
@@ -45,22 +44,52 @@ const FipeSearch = () => {
     }
   };
 
+  const jsonToCSV = (json) => {
+    const keys = Object.keys(json[0]);
+    const csvRows = [keys.join(',')];
+
+    json.forEach(obj => {
+      const values = keys.map(key => {
+        const escaped = ('' + obj[key]).replace(/"/g, '\\"');
+        return `"${escaped}"`;
+      });
+      csvRows.push(values.join(','));
+    });
+
+    return csvRows.join('\n');
+  };
+
+  const handleDownloadCSV = () => {
+    const csv = jsonToCSV(results);
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'fipe_results.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div>
       <h1>FIPE Search</h1>
       <input
         type="text"
-        placeholder="Enter FIPE codes, separated by commas"
+        id='fipe_input'
+        placeholder="Código Fipe"
         value={fipeCodes}
         onChange={handleFipeChange}
       />
       <input
         type="text"
-        placeholder="Enter corresponding years, separated by commas"
+        id='ano_input'
+        placeholder="Ano modelo"
         value={years}
         onChange={handleYearChange}
       />
       <button onClick={handleSearch}>Search</button>
+      <button onClick={handleDownloadCSV} disabled={results.length === 0}>Download CSV</button>
       <div>
         {results.map((result, index) => (
           <div key={index}>
