@@ -19,19 +19,19 @@ function App() {
         <header>
           <h1>Tabela Fipe Vtech</h1>
           <nav>
-            <button onClick={() => setSelectedOption('carros')}>
+            <button id='carro_button' onClick={() => setSelectedOption('carros')}>
               <img src={carImage} alt="Carros" />
               <span>Carros</span>
             </button>
-            <button onClick={() => setSelectedOption('caminhoes')}>
+            <button id='caminhao_button' onClick={() => setSelectedOption('caminhoes')}>
               <img src={truckImage} alt="Caminhões" />
               <span>Caminhões</span>
             </button>
-            <button onClick={() => setSelectedOption('motos')}>
+            <button id='moto_button' onClick={() => setSelectedOption('motos')}>
               <img src={motoImage} alt="Motos" />
               <span>Motos</span>
             </button>
-            <button onClick={() => setSelectedOption('fipe')}>
+            <button id='fipe_search_button' onClick={() => setSelectedOption('fipe')}>
               <img src={lupa} alt="Buscar por Código FIPE" />
               <span>Buscar por Código FIPE</span>
             </button>
