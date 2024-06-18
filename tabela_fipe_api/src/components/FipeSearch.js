@@ -72,14 +72,15 @@ const FipeSearch = () => {
   };
 
   return (
-    <div>
-      <h1>Lista Fipe</h1>
+    <div className="search-container">
+      <h2>Lista Fipe</h2>
       <input
         type="text"
         id='fipe_input'
         placeholder="Código Fipe"
         value={fipeCodes}
         onChange={handleFipeChange}
+        className="input-field"
       />
       <input
         type="text"
@@ -87,12 +88,13 @@ const FipeSearch = () => {
         placeholder="Ano modelo"
         value={years}
         onChange={handleYearChange}
+        className="input-field"
       />
-      <button id='search_button' onClick={handleSearch}>Search</button>
-      <button id='csv_button' onClick={handleDownloadCSV}>Download CSV</button>
-      <div>
+      <button id='search_button' onClick={handleSearch} className="action-button">Search</button>
+      <button id='csv_button' onClick={handleDownloadCSV} className="action-button">Download CSV</button>
+      <div className="results-container">
         {results.map((result, index) => (
-          <div key={index}>
+          <div key={index} className="result-item">
             <h2>{result.name}</h2>
             <p>{result.details}</p>
           </div>

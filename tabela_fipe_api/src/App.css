@@ -15,8 +15,28 @@ html {
 }
 
 .list-container {
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
+.list-container > * {
+  margin-bottom: 25px; /* Espaçamento entre os elementos */
+}
+
+.list-container > *:last-child {
+  margin-bottom: 0; /* Remove margem inferior do último elemento */
+}
+
+.list-container h2,
+.list-container h3 {
+  margin: 0; /* Remove margens superiores e inferiores padrão */
+}
+
+.resultado_fipe {
+  margin-top: 20px;
+}
+
 
 .main-container {
   display: flex;
@@ -90,6 +110,77 @@ button:hover {
 button.clicked {
   background-color: #50a1ca;
 } 
+
+.search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.search-container > * {
+  margin-bottom: 10px;
+}
+
+.search-container > *:last-child {
+  margin-bottom: 0;
+}
+
+.search-container h1,
+.search-container h2,
+.search-container p {
+  margin: 0;
+}
+
+.input-field {
+  width: 90%;
+  padding: 8px;
+  border: 1px solid #50a1ca;
+  border-radius: 8px;
+  box-shadow: none;
+  outline: none;
+  margin-bottom: 10px;
+}
+
+.action-button {
+  width: 200px; 
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: #50a1ca;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+}
+
+.action-button:hover {
+  background-color: #3b8bba;
+}
+
+.results-container {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.result-item {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+}
+
+.result-item h2 {
+  margin: 0 0 10px 0;
+}
+
+.result-item p {
+  margin: 0;
+}
 
 main {
   padding: 1rem;
@@ -181,13 +272,6 @@ p {
     padding: 0;
   }
 
-  h2 {
-    font-size: 1rem;
-  }
-
-  h3{
-    font-size: 1rem;
-  }
   .list-container {
     padding: 10px;
   }
