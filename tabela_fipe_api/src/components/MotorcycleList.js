@@ -55,12 +55,12 @@ const MotorcycleList = () => {
     control: (provided) => ({
       ...provided,
       borderRadius: '8px',
-      borderColor: '#50a1ca',
+      borderColor: '#32657E',
       boxShadow: 'none',
       width: '300px', // Define a largura do select
       minHeight: '35px', // Define a altura mínima do select
       '&:hover': {
-        borderColor: '#50a1ca',
+        borderColor: '#32657E',
       },
       margin: '0 auto', // Centraliza o select
     }),
@@ -75,15 +75,15 @@ const MotorcycleList = () => {
     option: (provided, state) => ({
       ...provided,
       backgroundColor: state.isFocused ? '#e0f7fa' : 'white',
-      color: state.isSelected ? '#50a1ca' : 'black',
+      color: state.isSelected ? '#32657E' : 'black',
       '&:hover': {
-        backgroundColor: '#50a1ca',
+        backgroundColor: '#32657E',
       },
     }),
     menu: (provided) => ({
       ...provided,
       borderRadius: '8px',
-      borderColor: '#50a1ca',
+      borderColor: '#32657E',
     }),
   };
 

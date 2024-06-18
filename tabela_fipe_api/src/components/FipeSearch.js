@@ -72,7 +72,7 @@ const FipeSearch = () => {
   };
 
   return (
-    <div className="search-container">
+    <div className="list-container">
       <h2>Lista Fipe</h2>
       <input
         type="text"
