@@ -89,7 +89,7 @@ const FipeSearch = () => {
         onChange={handleYearChange}
       />
       <button id='search_button' onClick={handleSearch}>Search</button>
-      <button id='csv_button' onClick={handleDownloadCSV} disabled={results.length === 0}>Download CSV</button>
+      <button id='csv_button' onClick={handleDownloadCSV}>Download CSV</button>
       <div>
         {results.map((result, index) => (
           <div key={index}>

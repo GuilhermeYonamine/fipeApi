@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useState } from 'react';
 import TruckList from './components/TruckList';
 import CarList from './components/CarList';
@@ -13,25 +12,45 @@ import lupa from './assets/Lupa.png';
 function App() {
   const [selectedOption, setSelectedOption] = useState('carros');
 
+  const handleButtonClick = (option) => {
+    setSelectedOption(option);
+  };
+
   return (
     <div className="main-container">
       <div className="App">
         <header>
           <h1>Tabela Fipe Vtech</h1>
           <nav>
-            <button id='carro_button' onClick={() => setSelectedOption('carros')}>
+            <button
+              id='carro_button'
+              className={selectedOption === 'carros' ? 'clicked' : ''}
+              onClick={() => handleButtonClick('carros')}
+            >
               <img src={carImage} alt="Carros" />
               <span>Carros</span>
             </button>
-            <button id='caminhao_button' onClick={() => setSelectedOption('caminhoes')}>
+            <button
+              id='caminhao_button'
+              className={selectedOption === 'caminhoes' ? 'clicked' : ''}
+              onClick={() => handleButtonClick('caminhoes')}
+            >
               <img src={truckImage} alt="Caminhões" />
               <span>Caminhões</span>
             </button>
-            <button id='moto_button' onClick={() => setSelectedOption('motos')}>
+            <button
+              id='moto_button'
+              className={selectedOption === 'motos' ? 'clicked' : ''}
+              onClick={() => handleButtonClick('motos')}
+            >
               <img src={motoImage} alt="Motos" />
               <span>Motos</span>
             </button>
-            <button id='fipe_search_button' onClick={() => setSelectedOption('fipe')}>
+            <button
+              id='fipe_search_button'
+              className={selectedOption === 'fipe' ? 'clicked' : ''}
+              onClick={() => handleButtonClick('fipe')}
+            >
               <img src={lupa} alt="Buscar por Código FIPE" />
               <span>Buscar por Código FIPE</span>
             </button>
