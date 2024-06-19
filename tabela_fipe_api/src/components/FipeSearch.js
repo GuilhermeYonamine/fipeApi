@@ -95,8 +95,8 @@ const FipeSearch = () => {
       <div className="results-container">
         {results.map((result, index) => (
           <div key={index} className="result-item">
-            <h2>{result.name}</h2>
-            <p>{result.details}</p>
+            <p>{result.name}</p>
+            {/* <p>{result.details}</p> */}
           </div>
         ))}
       </div>
