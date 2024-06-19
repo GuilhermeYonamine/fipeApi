@@ -8,7 +8,7 @@ const CarList = () => {
   const [models, setModels] = useState([]);
   const [selectedModel, setSelectedModel] = useState(null);
   const [years, setYears] = useState([]);
-  const [setSelectedYear] = useState(null);
+  const [selectedYear, setSelectedYear] = useState(null);
   const [priceDetails, setPriceDetails] = useState(null);
 
   useEffect(() => {
