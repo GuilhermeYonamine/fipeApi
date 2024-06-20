@@ -32,25 +32,38 @@ const FipeSearch = () => {
     }
 
     const promises = codes.map((code, index) => 
-      axios.get(`http://api.fipeapi.com.br/v1/fipe/${code}/${yearList[index]}?apikey=YOUR_API_KEY`)
+      axios.get(`http://api.fipeapi.com.br/v1/fipe/${code}/${yearList[index]}?apikey=ec0a19b23c9bea966b3d2eac2106386e`)
     );
 
     try {
       const responses = await Promise.all(promises);
-      const data = responses.map(response => response.data);
-      setResults(data);
+      const data = responses.map(response => {
+        const { marca, modelo, ano, preco } = response.data;
+        return { marca, modelo, ano, preco };
+      });
+      
+      if (data.length === 0 || data.some(item => !item)) {
+        alert('Nenhum resultado encontrado para a(s) busca(s) realizada(s).');
+      } else {
+        setResults(data);
+      }
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
 
   const jsonToCSV = (json) => {
+    if (!json || json.length === 0) {
+      return '';
+    }
+
     const keys = Object.keys(json[0]);
     const csvRows = [keys.join(',')];
 
     json.forEach(obj => {
       const values = keys.map(key => {
-        const escaped = ('' + obj[key]).replace(/"/g, '\\"');
+        const value = obj[key] !== undefined ? obj[key] : '';
+        const escaped = ('' + value).replace(/"/g, '""');
         return `"${escaped}"`;
       });
       csvRows.push(values.join(','));
@@ -95,8 +108,7 @@ const FipeSearch = () => {
       <div className="results-container">
         {results.map((result, index) => (
           <div key={index} className="result-item">
-            <p>{result.name}</p>
-            {/* <p>{result.details}</p> */}
+            <p>ID Modelo: {result.modelo}</p>
           </div>
         ))}
       </div>
