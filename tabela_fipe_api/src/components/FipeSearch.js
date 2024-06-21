@@ -33,6 +33,9 @@ const FipeSearch = () => {
 
     const apiKey = 'ec0a19b23c9bea966b3d2eac2106386e';
     const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+    
+    console.log('API Base URL:', apiBaseUrl);  // Log para verificar a URL base
+    
     const promises = codes.map((code, index) => {
       const url = `${apiBaseUrl}/${code}/${yearList[index]}?apikey=${apiKey}&_=${new Date().getTime()}`;
       console.log(`Making request to: ${url}`);
@@ -114,7 +117,10 @@ const FipeSearch = () => {
       <div className="results-container">
         {results.map((result, index) => (
           <div key={index} className="result-item">
+            <p>Marca: {result.marca}</p>
             <p>Modelo: {result.modelo}</p>
+            <p>Ano: {result.ano}</p>
+            <p>Preço: {result.preco}</p>
           </div>
         ))}
       </div>
