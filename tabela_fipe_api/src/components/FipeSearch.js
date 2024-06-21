@@ -45,12 +45,10 @@ const FipeSearch = () => {
     try {
       const responses = await Promise.all(promises);
       const data = responses.map(response => {
-        console.log('API response:', response.data);
-        return response.data;
+        const { marca, modelo, ano, preco } = response.data;
+        return { marca, modelo, ano, preco };
       });
-
-      console.log('Processed data:', data);
-
+      
       if (data.length === 0 || data.some(item => !item)) {
         alert('Nenhum resultado encontrado para a(s) busca(s) realizada(s).');
       } else {
