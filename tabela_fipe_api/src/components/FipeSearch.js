@@ -31,17 +31,20 @@ const FipeSearch = () => {
       return;
     }
 
-    const promises = codes.map((code, index) => 
-      axios.get(`/api/${code}/${yearList[index]}?apikey=ec0a19b23c9bea966b3d2eac2106386e`)
-    );
+    const promises = codes.map((code, index) => {
+      const url = `/api/${code}/${yearList[index]}?apikey=ec0a19b23c9bea966b3d2eac2106386e`;
+      console.log(`Making request to: ${url}`);
+      return axios.get(url, { headers: { 'Cache-Control': 'no-cache' } });
+    });
 
     try {
       const responses = await Promise.all(promises);
       const data = responses.map(response => {
+        console.log('API response:', response.data);
         const { marca, modelo, ano, preco } = response.data;
         return { marca, modelo, ano, preco };
       });
-      
+
       if (data.length === 0 || data.some(item => !item)) {
         alert('Nenhum resultado encontrado para a(s) busca(s) realizada(s).');
       } else {
