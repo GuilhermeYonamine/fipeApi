@@ -32,7 +32,7 @@ const FipeSearch = () => {
     }
 
     const promises = codes.map((code, index) => 
-      axios.get(`http://api.fipeapi.com.br/v1/fipe/${code}/${yearList[index]}?apikey=ec0a19b23c9bea966b3d2eac2106386e`)
+      axios.get(`/api/${code}/${yearList[index]}?apikey=ec0a19b23c9bea966b3d2eac2106386e`)
     );
 
     try {
