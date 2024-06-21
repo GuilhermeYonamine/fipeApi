@@ -31,8 +31,10 @@ const FipeSearch = () => {
       return;
     }
 
+    const apiKey = 'ec0a19b23c9bea966b3d2eac2106386e';
+    const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
     const promises = codes.map((code, index) => {
-      const url = `/api/${code}/${yearList[index]}?apikey=ec0a19b23c9bea966b3d2eac2106386e`;
+      const url = `${apiBaseUrl}/${code}/${yearList[index]}?apikey=${apiKey}&_=${new Date().getTime()}`;
       console.log(`Making request to: ${url}`);
       return axios.get(url, { headers: { 'Cache-Control': 'no-cache' } });
     });
@@ -41,9 +43,10 @@ const FipeSearch = () => {
       const responses = await Promise.all(promises);
       const data = responses.map(response => {
         console.log('API response:', response.data);
-        const { marca, modelo, ano, preco } = response.data;
-        return { marca, modelo, ano, preco };
+        return response.data;
       });
+
+      console.log('Processed data:', data);
 
       if (data.length === 0 || data.some(item => !item)) {
         alert('Nenhum resultado encontrado para a(s) busca(s) realizada(s).');
@@ -111,7 +114,7 @@ const FipeSearch = () => {
       <div className="results-container">
         {results.map((result, index) => (
           <div key={index} className="result-item">
-            <p>ID Modelo: {result.modelo}</p>
+            <p>Modelo: {result.modelo}</p>
           </div>
         ))}
       </div>
