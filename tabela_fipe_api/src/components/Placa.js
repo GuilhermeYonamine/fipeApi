@@ -36,17 +36,21 @@ const Placa = () => {
       const responses = await Promise.all(promises);
       const data = responses.map(response => {
         const {
-          MARCA: marca,
-          MODELO: modelo,
+          ano,
+          extra: { chassi },
           fipe: {
-            dados: [{ codigo_fipe }]
+            dados: [{ codigo_fipe, ano_modelo, texto_marca, texto_modelo, texto_valor }]
           }
         } = response.data;
 
         return {
-          marca,
-          modelo,
-          codigo_fipe
+          texto_marca,
+          texto_modelo,
+          ano,
+          ano_modelo,
+          codigo_fipe,
+          texto_valor,
+          chassi
         };
       });
 
