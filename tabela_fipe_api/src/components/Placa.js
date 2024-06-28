@@ -1,43 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const FipeSearch = () => {
+const Placa = () => {
   const [fipeCodes, setFipeCodes] = useState('');
-  const [years, setYears] = useState('');
   const [results, setResults] = useState([]);
+
+  useEffect(() => {
+    console.log('REACT_APP_API_BASE_URL:', process.env.REACT_APP_API_BASE_URL);
+    console.log('REACT_APP_API_BASE_URL_PLACA:', process.env.REACT_APP_API_BASE_URL_PLACA);
+  }, []);
 
   const handleFipeChange = (e) => {
     let value = e.target.value;
-    if (value.length > fipeCodes.length && value.length % 9 === 8) {
+    if (value.length > fipeCodes.length && value.length % 8 === 7) {
       value += ',';
     }
     setFipeCodes(value);
   };
 
-  const handleYearChange = (e) => {
-    let value = e.target.value;
-    if (value.length > years.length && value.length % 5 === 4) {
-      value += ',';
-    }
-    setYears(value);
-  };
-
   const handleSearch = async () => {
     const codes = fipeCodes.split(',').filter(Boolean);
-    const yearList = years.split(',').filter(Boolean);
 
-    if (codes.length !== yearList.length) {
-      alert('As listas de códigos FIPE e anos devem ter o mesmo comprimento.');
-      return;
-    }
+    const apiKey = '8bcb9236c466b431bf5172738187bb77';
+    const apiBaseUrl = process.env.REACT_APP_API_BASE_URL_PLACA;
 
-    const apiKey = 'ec0a19b23c9bea966b3d2eac2106386e';
-    const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
-    
-    console.log('API Base URL:', apiBaseUrl);  // Log para verificar a URL base
-    
-    const promises = codes.map((code, index) => {
-      const url = `${apiBaseUrl}/${code}/${yearList[index]}?apikey=${apiKey}`;
+    console.log('API Base URL Placa:', apiBaseUrl);  // Log para verificar a URL base
+
+    const promises = codes.map((code) => {
+      const url = `${apiBaseUrl}/${code}/${apiKey}`;
       console.log(`Making request to: ${url}`);
       return axios.get(url, { headers: { 'Cache-Control': 'no-cache' } });
     });
@@ -45,10 +35,21 @@ const FipeSearch = () => {
     try {
       const responses = await Promise.all(promises);
       const data = responses.map(response => {
-        const { marca, modelo, ano, preco } = response.data;
-        return { marca, modelo, ano, preco };
+        const {
+          MARCA: marca,
+          MODELO: modelo,
+          fipe: {
+            dados: [{ codigo_fipe }]
+          }
+        } = response.data;
+
+        return {
+          marca,
+          modelo,
+          codigo_fipe
+        };
       });
-      
+
       if (data.length === 0 || data.some(item => !item)) {
         alert('Nenhum resultado encontrado para a(s) busca(s) realizada(s).');
       } else {
@@ -93,21 +94,13 @@ const FipeSearch = () => {
 
   return (
     <div className="list-container-fipe">
-      <h2>Lista Fipe</h2>
+      <h2>Busca placa</h2>
       <input
         type="text"
         id='fipe_input'
-        placeholder="Código Fipe"
+        placeholder="Placa do veículo"
         value={fipeCodes}
         onChange={handleFipeChange}
-        className="input-field"
-      />
-      <input
-        type="text"
-        id='ano_input'
-        placeholder="Ano modelo"
-        value={years}
-        onChange={handleYearChange}
         className="input-field"
       />
       <button id='search_button' onClick={handleSearch} className="action-button">Buscar</button>
@@ -115,7 +108,7 @@ const FipeSearch = () => {
       <div className="results-container">
         {results.map((result, index) => (
           <div key={index} className="result-item">
-            <p>{result.modelo}</p>
+            <p>{result.codigo_fipe}</p>
           </div>
         ))}
       </div>
@@ -123,4 +116,4 @@ const FipeSearch = () => {
   );
 };
 
-export default FipeSearch;
+export default Placa;

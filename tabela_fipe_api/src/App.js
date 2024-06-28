@@ -3,11 +3,14 @@ import TruckList from './components/TruckList';
 import CarList from './components/CarList';
 import FipeSearch from './components/FipeSearch';
 import MotorcycleList from './components/MotorcycleList';
+import Placa from './components/Placa';
 import './App.css';
 import carImage from './assets/Carro.png';
 import truckImage from './assets/Caminhao.png';
 import motoImage from './assets/Moto.png';
 import lupa from './assets/Lupa.png';
+import PlacaCarro from './assets/PlacaCarro.png'
+
 
 function App() {
   const [selectedOption, setSelectedOption] = useState('carros');
@@ -54,6 +57,14 @@ function App() {
               <img src={lupa} alt="Buscar por Código FIPE" />
               <span>Buscar por Código FIPE</span>
             </button>
+            <button
+              id='placa_search_button'
+              className={selectedOption === 'placa' ? 'clicked' : ''}
+              onClick={() => handleButtonClick('placa')}
+            >
+              <img src={PlacaCarro} alt="Buscar por placa" />
+              <span>Buscar por placa</span>
+            </button>
           </nav>
         </header>
         <main>
@@ -61,6 +72,7 @@ function App() {
           {selectedOption === 'caminhoes' && <TruckList />}
           {selectedOption === 'motos' && <MotorcycleList />}
           {selectedOption === 'fipe' && <FipeSearch />}
+          {selectedOption === 'placa' && <Placa />}
         </main>
       </div>
     </div>
