@@ -21,7 +21,7 @@ const Placa = () => {
   const handleSearch = async () => {
     const codes = fipeCodes.split(',').filter(Boolean);
 
-    const apiKey = '8bcb9236c466b431bf5172738187bb77';
+    const apiKey = 'd910a2e8e8390df63996151259d680cc';
     const apiBaseUrl = process.env.REACT_APP_API_BASE_URL_PLACA;
 
     console.log('API Base URL Placa:', apiBaseUrl);  // Log para verificar a URL base
