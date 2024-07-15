@@ -35,26 +35,40 @@ const Placa = () => {
     try {
       const responses = await Promise.all(promises);
       const data = responses.map(response => {
-        const {
-          ano,
-          extra: { chassi },
-          fipe: {
-            dados: [{ codigo_fipe, ano_modelo, texto_marca, texto_modelo, texto_valor }]
-          }
-        } = response.data;
+        // Verifica se a resposta contém os dados esperados
+        if (
+          response.data &&
+          response.data.ano &&
+          response.data.extra &&
+          response.data.extra.chassi &&
+          response.data.fipe &&
+          response.data.fipe.dados &&
+          response.data.fipe.dados.length > 0
+        ) {
+          const {
+            ano,
+            extra: { chassi },
+            fipe: {
+              dados: [{ codigo_fipe, ano_modelo, texto_marca, texto_modelo, texto_valor }]
+            }
+          } = response.data;
 
-        return {
-          texto_marca,
-          texto_modelo,
-          ano,
-          ano_modelo,
-          codigo_fipe,
-          texto_valor,
-          chassi
-        };
-      });
+          return {
+            texto_marca,
+            texto_modelo,
+            ano,
+            ano_modelo,
+            codigo_fipe,
+            texto_valor,
+            chassi
+          };
+        } else {
+          console.warn('Unexpected response format:', response.data);
+          return null;
+        }
+      }).filter(item => item !== null); // Filtra respostas inválidas
 
-      if (data.length === 0 || data.some(item => !item)) {
+      if (data.length === 0) {
         alert('Nenhum resultado encontrado para a(s) busca(s) realizada(s).');
       } else {
         setResults(data);
