@@ -66,6 +66,9 @@ function App() {
               <span>Buscar por placa</span>
             </button>
           </nav>
+          <button className='pesquisa_unitaria'>
+            <span>Pesquisa unitária</span>
+          </button>
         </header>
         <main>
           {selectedOption === 'carros' && <CarList />}

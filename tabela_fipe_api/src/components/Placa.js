@@ -36,36 +36,31 @@ const Placa = () => {
       const responses = await Promise.all(promises);
       const data = responses.map(response => {
         // Verifica se a resposta contém os dados esperados
-        if (
-          response.data &&
-          response.data.ano &&
-          response.data.extra &&
-          response.data.extra.chassi &&
-          response.data.fipe &&
-          response.data.fipe.dados &&
-          response.data.fipe.dados.length > 0
-        ) {
-          const {
-            ano,
-            extra: { chassi },
-            fipe: {
-              dados: [{ codigo_fipe, ano_modelo, texto_marca, texto_modelo, texto_valor }]
-            }
-          } = response.data;
+        const {
+          ano = '',
+          anoModelo ='',
+          chassis = '',
+          MARCA = '',
+          MODELO = '',
+          extra: { chassi = ''} = {},
+          fipe: {
+            dados: [{
+              codigo_fipe = '',
+              texto_valor = ''
+            } = {}] = []
+          } = {}
+        } = response.data || {};
 
-          return {
-            texto_marca,
-            texto_modelo,
-            ano,
-            ano_modelo,
-            codigo_fipe,
-            texto_valor,
-            chassi
-          };
-        } else {
-          console.warn('Unexpected response format:', response.data);
-          return null;
-        }
+        return {
+          MARCA,
+          MODELO,
+          ano,
+          anoModelo,
+          codigo_fipe,
+          texto_valor,
+          chassi,
+          chassis
+        };
       }).filter(item => item !== null); // Filtra respostas inválidas
 
       if (data.length === 0) {
@@ -88,7 +83,7 @@ const Placa = () => {
 
     json.forEach(obj => {
       const values = keys.map(key => {
-        const value = obj[key] !== undefined ? obj[key] : '';
+        const value = obj[key] !== undefined ? obj[key] : ''; // Substitui valores não encontrados por vazio
         const escaped = ('' + value).replace(/"/g, '""');
         return `"${escaped}"`;
       });
