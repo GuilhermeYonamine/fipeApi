@@ -4,6 +4,7 @@ import CarList from './components/CarList';
 import FipeSearch from './components/FipeSearch';
 import MotorcycleList from './components/MotorcycleList';
 import Placa from './components/Placa';
+import ConsultaUnitaria from './components/ConsultaUnitaria';
 import './App.css';
 import carImage from './assets/Carro.png';
 import truckImage from './assets/Caminhao.png';
@@ -66,9 +67,14 @@ function App() {
               <span>Buscar por placa</span>
             </button>
           </nav>
-          <button className='pesquisa_unitaria'>
+          <button 
+            id='pesquisa_unitaria_search_button'
+            className={selectedOption === 'consulta_unitaria' ? 'clicked' : ''}
+            onClick={() => handleButtonClick('consulta_unitaria')}
+          >
             <span>Pesquisa unitária</span>
           </button>
+
         </header>
         <main>
           {selectedOption === 'carros' && <CarList />}
@@ -76,6 +82,7 @@ function App() {
           {selectedOption === 'motos' && <MotorcycleList />}
           {selectedOption === 'fipe' && <FipeSearch />}
           {selectedOption === 'placa' && <Placa />}
+          {selectedOption === 'consulta_unitaria' && <ConsultaUnitaria />}
         </main>
       </div>
     </div>
