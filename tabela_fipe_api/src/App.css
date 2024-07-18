@@ -125,7 +125,7 @@ button.clicked {
   margin-bottom: 10px;
 }
 
-.action-button {
+.action-button{
   width: 200px; 
   padding: 10px;
   border: none;
@@ -229,15 +229,7 @@ p {
   border-radius: 4px;
 }
 
-.action-button {
-  padding: 10px 20px;
-  background-color: #007BFF;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 10px;
-}
+
 
 .action-button:disabled {
   background-color: #cccccc;

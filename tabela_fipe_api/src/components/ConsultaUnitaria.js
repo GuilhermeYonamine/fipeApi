@@ -7,9 +7,9 @@ const ConsultaUnitaria = () => {
     }, []);
 
         const [placa, setPlaca] = useState('');
-    const [result, setResult] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+        const [result, setResult] = useState(null);
+        const [loading, setLoading] = useState(false);
+        const [error, setError] = useState(null);
 
     const handlePlacaChange = (e) => {
         setPlaca(e.target.value);
