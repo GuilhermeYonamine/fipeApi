@@ -8,6 +8,7 @@ const Placa = () => {
   useEffect(() => {
     console.log('REACT_APP_API_BASE_URL:', process.env.REACT_APP_API_BASE_URL);
     console.log('REACT_APP_API_BASE_URL_PLACA:', process.env.REACT_APP_API_BASE_URL_PLACA);
+    console.log('REACT_APP_API_BASE_URL_PLACA_TESTE', process.env.REACT_APP_API_BASE_URL_PLACA_TESTE);
   }, []);
 
   const handleFipeChange = (e) => {
@@ -21,47 +22,39 @@ const Placa = () => {
   const handleSearch = async () => {
     const codes = fipeCodes.split(',').filter(Boolean);
 
-    const apiKey = 'd910a2e8e8390df63996151259d680cc';
-    const apiBaseUrl = process.env.REACT_APP_API_BASE_URL_PLACA;
+    const apiKey = 'a4bfce229992c290ac3a5134aacbc948';
+    const apiBaseUrl = process.env.REACT_APP_API_BASE_URL_PLACA_TESTE;
 
-    console.log('API Base URL Placa:', apiBaseUrl);  // Log para verificar a URL base
+    console.log('API Base URL Placa:', apiBaseUrl);
 
     const promises = codes.map((code) => {
-      const url = `${apiBaseUrl}/${code}/${apiKey}`;
+      const url = `${apiBaseUrl}/${code}?key=${apiKey}`;
       console.log(`Making request to: ${url}`);
       return axios.get(url, { headers: { 'Cache-Control': 'no-cache' } });
     });
 
     try {
       const responses = await Promise.all(promises);
-      const data = responses.map(response => {
-        // Verifica se a resposta contém os dados esperados
+      const data = responses.flatMap(response => {
         const {
-          ano = '',
-          anoModelo ='',
-          chassis = '',
-          MARCA = '',
-          MODELO = '',
-          extra: { chassi = ''} = {},
-          fipe: {
-            dados: [{
-              codigo_fipe = '',
-              texto_valor = ''
-            } = {}] = []
-          } = {}
+          veiculo: {
+            ano = '',
+            chassi = '',
+            marca_modelo = ''
+          } = {},
+          fipes = []
         } = response.data || {};
 
-        return {
-          MARCA,
-          MODELO,
+        return fipes.map(fipe => ({
+          marca_modelo,
           ano,
-          anoModelo,
-          codigo_fipe,
-          texto_valor,
           chassi,
-          chassis
-        };
-      }).filter(item => item !== null); // Filtra respostas inválidas
+          codigo_fipe: fipe.codigo,
+          valor: fipe.valor,
+          marca: fipe.marca,
+          modelo: fipe.modelo
+        }));
+      });
 
       if (data.length === 0) {
         alert('Nenhum resultado encontrado para a(s) busca(s) realizada(s).');
@@ -83,7 +76,7 @@ const Placa = () => {
 
     json.forEach(obj => {
       const values = keys.map(key => {
-        const value = obj[key] !== undefined ? obj[key] : ''; // Substitui valores não encontrados por vazio
+        const value = obj[key] !== undefined ? obj[key] : '';
         const escaped = ('' + value).replace(/"/g, '""');
         return `"${escaped}"`;
       });
@@ -122,6 +115,12 @@ const Placa = () => {
         {results.map((result, index) => (
           <div key={index} className="result-item">
             <p>{result.codigo_fipe}</p>
+            <p>{result.valor}</p>
+            <p>{result.marca}</p>
+            <p>{result.modelo}</p>
+            <p>{result.marca_modelo}</p>
+            <p>{result.ano}</p>
+            <p>{result.chassi}</p>
           </div>
         ))}
       </div>
