@@ -36,6 +36,7 @@ const Placa = () => {
     try {
       const responses = await Promise.all(promises);
       const data = responses.flatMap(response => {
+        console.log('Response data:', response.data);
         const {
           veiculo: {
             ano = '',
@@ -43,7 +44,7 @@ const Placa = () => {
             marca_modelo = ''
           } = {},
           fipes = []
-        } = response.data || {};
+        } = response.data.data || {};
 
         return fipes.map(fipe => ({
           marca_modelo,
@@ -56,6 +57,8 @@ const Placa = () => {
         }));
       });
 
+      console.log('Processed data:', data);
+
       if (data.length === 0) {
         alert('Nenhum resultado encontrado para a(s) busca(s) realizada(s).');
       } else {
@@ -63,6 +66,7 @@ const Placa = () => {
       }
     } catch (error) {
       console.error('Error fetching data:', error);
+      alert('Erro ao buscar dados. Verifique o console para mais detalhes.');
     }
   };
 
@@ -115,12 +119,6 @@ const Placa = () => {
         {results.map((result, index) => (
           <div key={index} className="result-item">
             <p>{result.codigo_fipe}</p>
-            <p>{result.valor}</p>
-            <p>{result.marca}</p>
-            <p>{result.modelo}</p>
-            <p>{result.marca_modelo}</p>
-            <p>{result.ano}</p>
-            <p>{result.chassi}</p>
           </div>
         ))}
       </div>
