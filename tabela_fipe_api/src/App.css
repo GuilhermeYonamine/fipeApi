@@ -148,6 +148,10 @@ button.clicked {
   align-items: center;
 }
 
+.results-container, p{
+  font-size: 30px;
+}
+
 .result-item {
   width: 100%;
   padding: 10px;
@@ -262,7 +266,7 @@ p {
 }
 
 .consulta_button{
-  border-radius: 15px;
+  border-radius: 10px;
   width: 50%;
   margin-bottom: 20px;
   border-style: solid;

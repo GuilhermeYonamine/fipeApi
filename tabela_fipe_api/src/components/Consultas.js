@@ -36,7 +36,7 @@ const Consulta = () => {
       <div className="results-container">
         {results.map((result, index) => (
           <div key={index} className="result-item">
-            <p>Quantidade de Consultas: {result.qtdConsultas}</p>
+            <p>{result.qtdConsultas} consultas restantes</p>
           </div>
         ))}
       </div>
