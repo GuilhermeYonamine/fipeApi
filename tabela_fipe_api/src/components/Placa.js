@@ -8,7 +8,6 @@ const Placa = () => {
   useEffect(() => {
     console.log('REACT_APP_API_BASE_URL:', process.env.REACT_APP_API_BASE_URL);
     console.log('REACT_APP_API_BASE_URL_PLACA:', process.env.REACT_APP_API_BASE_URL_PLACA);
-    console.log('REACT_APP_API_BASE_URL_PLACA_TESTE', process.env.REACT_APP_API_BASE_URL_PLACA_TESTE);
   }, []);
 
   const handleFipeChange = (e) => {
@@ -22,42 +21,48 @@ const Placa = () => {
   const handleSearch = async () => {
     const codes = fipeCodes.split(',').filter(Boolean);
 
-    const apiKey = 'a4bfce229992c290ac3a5134aacbc948';
-    const apiBaseUrl = process.env.REACT_APP_API_BASE_URL_PLACA_TESTE;
+    const apiKey = 'd910a2e8e8390df63996151259d680cc';
+    const apiBaseUrl = process.env.REACT_APP_API_BASE_URL_PLACA;
 
-    console.log('API Base URL Placa:', apiBaseUrl);
+    console.log('API Base URL Placa:', apiBaseUrl);  // Log para verificar a URL base
 
     const promises = codes.map((code) => {
-      const url = `${apiBaseUrl}/${code}?key=${apiKey}`;
+      const url = `${apiBaseUrl}/${code}/${apiKey};`
+      // const url= `${apiBaseUrl}/${code}?key=${apiKey}`
       console.log(`Making request to: ${url}`);
       return axios.get(url, { headers: { 'Cache-Control': 'no-cache' } });
     });
 
     try {
       const responses = await Promise.all(promises);
-      const data = responses.flatMap(response => {
-        console.log('Response data:', response.data);
+      const data = responses.map(response => {
+        //Verifica se a resposta contém os dados esperados
         const {
-          veiculo: {
-            ano = '',
-            chassi = '',
-            marca_modelo = ''
-          } = {},
-          fipes = []
-        } = response.data.data || {};
+          ano = '',
+          anoModelo ='',
+          chassis = '',
+          MARCA = '',
+          MODELO = '',
+          extra: { chassi = ''} = {},
+          fipe: {
+            dados: [{
+              codigo_fipe = '',
+              texto_valor = ''
+            } = {}] = []
+          } = {}
+        } = response.data || {};;  
 
-        return fipes.map(fipe => ({
-          marca_modelo,
+        return {
+          MARCA,
+          MODELO,
           ano,
+          anoModelo,
+          codigo_fipe,
+          texto_valor,
           chassi,
-          codigo_fipe: fipe.codigo,
-          valor: fipe.valor,
-          marca: fipe.marca,
-          modelo: fipe.modelo
-        }));
-      });
-
-      console.log('Processed data:', data);
+          chassis
+        };
+      }).filter(item => item !== null); // Filtra respostas inválidas
 
       if (data.length === 0) {
         alert('Nenhum resultado encontrado para a(s) busca(s) realizada(s).');
@@ -66,7 +71,6 @@ const Placa = () => {
       }
     } catch (error) {
       console.error('Error fetching data:', error);
-      alert('Erro ao buscar dados. Verifique o console para mais detalhes.');
     }
   };
 
@@ -80,9 +84,9 @@ const Placa = () => {
 
     json.forEach(obj => {
       const values = keys.map(key => {
-        const value = obj[key] !== undefined ? obj[key] : '';
+        const value = obj[key] !== undefined ? obj[key] : ''; // Substitui valores não encontrados por vazio
         const escaped = ('' + value).replace(/"/g, '""');
-        return `"${escaped}"`;
+        return '"' + escaped + '"';
       });
       csvRows.push(values.join(','));
     });

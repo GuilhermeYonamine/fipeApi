@@ -5,6 +5,7 @@ import FipeSearch from './components/FipeSearch';
 import MotorcycleList from './components/MotorcycleList';
 import Placa from './components/Placa';
 import ConsultaUnitaria from './components/ConsultaUnitaria';
+import Consulta from './components/Consultas';
 import './App.css';
 import carImage from './assets/Carro.png';
 import truckImage from './assets/Caminhao.png';
@@ -67,13 +68,25 @@ function App() {
               <span>Buscar por placa</span>
             </button>
           </nav>
-          <button 
-            id='pesquisa_unitaria_search_button'
-            className={selectedOption === 'consulta_unitaria' ? 'clicked' : ''}
-            onClick={() => handleButtonClick('consulta_unitaria')}
-          >
-            <span>Pesquisa unitária</span>
-          </button>
+          <div className='botoes_novos'>
+            <div className='botoes_novos_container'>
+              <button 
+                id='pesquisa_unitaria_search_button'
+                className={selectedOption === 'consulta_unitaria' ? 'clicked' : ''}
+                onClick={() => handleButtonClick('consulta_unitaria')}
+              >
+                <span>Pesquisa unitária</span>
+              </button>
+              <button 
+                id='quantidade_de_consultas'
+                className={selectedOption === 'quantidade_consultas' ? 'clicked' : ''}
+                onClick={() => handleButtonClick('quantidade_consultas')}
+              >
+                <span>Quantidade de consultas</span>
+              </button>
+            </div>
+          </div>
+          
 
         </header>
         <main>
@@ -83,6 +96,7 @@ function App() {
           {selectedOption === 'fipe' && <FipeSearch />}
           {selectedOption === 'placa' && <Placa />}
           {selectedOption === 'consulta_unitaria' && <ConsultaUnitaria />}
+          {selectedOption === 'quantidade_consultas' && <Consulta />}
         </main>
       </div>
     </div>

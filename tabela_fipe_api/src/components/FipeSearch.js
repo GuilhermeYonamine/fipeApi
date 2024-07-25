@@ -33,29 +33,29 @@ const FipeSearch = () => {
 
     const apiKey = 'ec0a19b23c9bea966b3d2eac2106386e';
     const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
-    
-    console.log('API Base URL:', apiBaseUrl);  // Log para verificar a URL base
-    
+
     const promises = codes.map((code, index) => {
       const url = `${apiBaseUrl}/${code}/${yearList[index]}?apikey=${apiKey}`;
-      console.log(`Making request to: ${url}`);
-      return axios.get(url, { headers: { 'Cache-Control': 'no-cache' } });
+      return axios.get(url, { headers: { 'Cache-Control': 'no-cache' } }).catch((error) => {
+        console.error(`Error fetching data for code ${code} and year ${yearList[index]}:`, error);
+        return { data: null }; // Retornar null em caso de erro
+      });
     });
 
     try {
       const responses = await Promise.all(promises);
       const data = responses.map(response => {
-        const { marca, modelo, ano, preco } = response.data;
-        return { marca, modelo, ano, preco };
+        if (response && response.data) {
+          const { marca, modelo, ano, preco } = response.data;
+          return { marca, modelo, ano, preco };
+        } else {
+          return { marca: 'N/A', modelo: 'N/A', ano: 'N/A', preco: 'N/A' };
+        }
       });
-      
-      if (data.length === 0 || data.some(item => !item)) {
-        alert('Nenhum resultado encontrado para a(s) busca(s) realizada(s).');
-      } else {
-        setResults(data);
-      }
+
+      setResults(data);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error('Error processing data:', error);
     }
   };
 

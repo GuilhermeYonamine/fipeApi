@@ -191,13 +191,13 @@ p {
   color: #666;
 }
 
-#pesquisa_unitaria_search_button {
+#pesquisa_unitaria_search_button, #quantidade_de_consultas{
   margin: 5px 0 5px 0 ;
   border-radius: 10px;
   border-style: solid;
   border-width: 0px;
   height: 30px;
-  width: 50%;
+  width: 30%;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 
 }
@@ -249,6 +249,31 @@ p {
   margin: 5px 0;
 }
 
+.botoes_novos{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+.botoes_novos_container{
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.consulta_button{
+  border-radius: 15px;
+  width: 50%;
+  margin-bottom: 20px;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.result-item{
+  width: 80%;
+  font-size: large;
+  font-weight: bold;
+}
 
 @media (max-width: 450px) {
 
@@ -264,7 +289,7 @@ p {
     flex-direction: column;
   }
 
-  #pesquisa_unitaria_search_button {
+  #pesquisa_unitaria_search_button, #quantidade_de_consultas{
     border-radius: 20px;
     width: 10rem;
     height: 2rem;
