@@ -148,7 +148,7 @@ button.clicked {
   align-items: center;
 }
 
-.results-container, p{
+.resultado_consulta{
   font-size: 30px;
 }
 
